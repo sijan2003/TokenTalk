@@ -244,22 +244,56 @@ async function loadWebpages() {
     }
 }
 
+// --- Navigation: Section Switching ---
+window.showSection = (event, sectionName) => {
+    if (event) event.preventDefault();
+
+    // Hide all sections
+    ['docsSection', 'ytSection', 'webSection'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+    });
+
+    // Remove active class from all links
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+    // Show selected section
+    const sectionMap = { 'docs': 'docsSection', 'youtube': 'ytSection', 'web': 'webSection' };
+    const targetEl = document.getElementById(sectionMap[sectionName]);
+    if (targetEl) {
+        targetEl.classList.remove('hidden');
+        targetEl.classList.add('fade-in');
+    }
+
+    // Set active link visually
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    } else if (event && event.target) {
+        // Fallback for some event bubbling edge cases
+        const link = event.target.closest('.nav-link');
+        if (link) link.classList.add('active');
+    }
+};
+
 // Navigation to the Chat screen
 window.goToChat = (id, type) => {
     // Passes the Source ID and Type in the URL so chat.js knows what to load
-    window.location.href = `chat.html?id=${id}&type=${type}`;
+    // Mapping internal types for consistency if needed
+    const finalType = type === 'web' ? 'webpage' : type;
+    window.location.href = `chat.html?id=${id}&type=${finalType}`;
 };
 
 // Deletion logic
 window.deleteSource = async (id, type) => {
     if (!confirm('Are you sure you want to delete this source?')) return;
     try {
-        // We only implemented the PDF deletion route in the current iteration.
         if (type === 'pdf') {
             await API.deleteDocument(id);
             loadDocuments();
-        } else {
-            alert('To keep your data safe, delete functionality for YouTube/Web is currently restricted.');
+        } else if (type === 'youtube' || type === 'web' || type === 'webpage') {
+            // For now, these might use a shared delete route if available, 
+            // but the current backend structure seems to only have it for documents.
+            alert('Delete functionality for YouTube/Web is currently restricted to maintain data integrity.');
         }
     } catch (e) {
         alert('Error deleting: ' + e.message);

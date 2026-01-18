@@ -19,13 +19,13 @@
             </div>
 
             <nav style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="#" class="nav-link active" onclick="showSection('docs')">
+                <a href="#" class="nav-link active" onclick="showSection(event, 'docs')">
                     <i class="fas fa-file-pdf"></i> Documents
                 </a>
-                <a href="#" class="nav-link" onclick="showSection('youtube')">
+                <a href="#" class="nav-link" onclick="showSection(event, 'youtube')">
                     <i class="fas fa-video"></i> YouTube
                 </a>
-                <a href="#" class="nav-link" onclick="showSection('web')">
+                <a href="#" class="nav-link" onclick="showSection(event, 'web')">
                     <i class="fas fa-globe"></i> Webpages
                 </a>
             </nav>
@@ -75,7 +75,7 @@
             </section>
 
             <!-- YouTube Section -->
-            <section id="ytSection">
+            <section id="ytSection" class="hidden">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h2>YouTube Videos</h2>
                 </div>
@@ -88,13 +88,13 @@
                     </button>
                 </div>
 
-                <div id="youtubeList" class="source-list">
+                <div id="youtubeList" class="source-grid">
                     <!-- Loaded dynamically -->
                 </div>
             </section>
 
             <!-- Webpage Section -->
-            <section id="webSection">
+            <section id="webSection" class="hidden">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h2>Webpages</h2>
                 </div>
@@ -107,7 +107,7 @@
                     </button>
                 </div>
 
-                <div id="webpageList" class="source-list">
+                <div id="webpageList" class="source-grid">
                     <!-- Loaded dynamically -->
                 </div>
             </section>
