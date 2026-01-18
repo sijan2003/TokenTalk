@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuMind - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-layout container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div style="padding:1rem;">
+                <h2 class="text-gradient" style="margin-bottom:0.5rem;">DocuMind</h2>
+                <p style="font-size:0.8rem;">AI Source Manager</p>
+            </div>
+
+            <nav style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="#" class="nav-link active" onclick="showSection('docs')">
+                    <i class="fas fa-file-pdf"></i> Documents
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('youtube')">
+                    <i class="fas fa-video"></i> YouTube
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('web')">
+                    <i class="fas fa-globe"></i> Webpages
+                </a>
+            </nav>
+
+            <div style="padding-top:1rem; border-top:1px solid var(--glass-border);">
+                <a href="#" id="logoutBtn" class="nav-link" style="color:var(--error);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main style="overflow-y:auto; padding-right:1rem;">
+            <!-- Header/Stats -->
+            <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem;">
+                <div>
+                    <h1 style="font-size:2.2rem; margin-bottom:0.2rem;">Your Knowledge Base</h1>
+                    <p>Manage and chat with your synchronized sources</p>
+                </div>
+                <div style="display:flex; gap:1.5rem;">
+                    <div class="glass" style="padding:1rem 1.5rem; text-align:center;">
+                        <span id="docCount" style="font-size:1.5rem; font-weight:700; color:var(--primary);">0</span>
+                        <p style="font-size:0.75rem; margin-top:0.2rem;">Docs</p>
+                    </div>
+                    <div class="glass" style="padding:1rem 1.5rem; text-align:center;">
+                        <span id="vidCount" style="font-size:1.5rem; font-weight:700; color:var(--secondary);">0</span>
+                        <p style="font-size:0.75rem; margin-top:0.2rem;">Videos</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PDF Upload Section -->
+            <section id="docsSection" class="fade-in">
+                <div class="glass" id="uploadArea"
+                    style="padding:3rem; border:2px dashed var(--glass-border); text-align:center; margin-bottom:2.5rem; cursor:pointer;">
+                    <i class="fas fa-cloud-upload-alt"
+                        style="font-size:3rem; color:var(--primary); margin-bottom:1rem;"></i>
+                    <h3>Upload PDF Documents</h3>
+                    <p>Drag and drop or click to browse</p>
+                    <input type="file" id="fileInput" class="hidden" accept=".pdf">
+                    <div id="uploadStatus" class="hidden" style="margin-top:1.5rem; font-weight:500;"></div>
+                </div>
+
+                <div class="source-grid" id="documentList">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- YouTube Section -->
+            <section id="ytSection">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>YouTube Videos</h2>
+                </div>
+
+                <div class="glass" style="padding: 1rem; display: flex; gap: 0.5rem; margin-bottom: 2rem;">
+                    <input type="text" id="youtubeUrl" placeholder="Paste YouTube Video URL here..."
+                        style="border: none; background: transparent;">
+                    <button id="addYoutubeBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+
+                <div id="youtubeList" class="source-list">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Webpage Section -->
+            <section id="webSection">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Webpages</h2>
+                </div>
+
+                <div class="glass" style="padding: 1rem; display: flex; gap: 0.5rem; margin-bottom: 2rem;">
+                    <input type="text" id="webpageUrl" placeholder="Paste Webpage URL here..."
+                        style="border: none; background: transparent;">
+                    <button id="addWebpageBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+
+                <div id="webpageList" class="source-list">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+    </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

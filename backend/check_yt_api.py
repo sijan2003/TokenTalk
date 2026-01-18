@@ -1,0 +1,11 @@
+from youtube_transcript_api import YouTubeTranscriptApi
+import inspect
+
+print(f"Type: {type(YouTubeTranscriptApi)}")
+print(f"Dir: {dir(YouTubeTranscriptApi)}")
+
+try:
+    print(f"Has list_transcripts: {hasattr(YouTubeTranscriptApi, 'list_transcripts')}")
+    print(f"Has get_transcript: {hasattr(YouTubeTranscriptApi, 'get_transcript')}")
+except Exception as e:
+    print(f"Error: {e}")
